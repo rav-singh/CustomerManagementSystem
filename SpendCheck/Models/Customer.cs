@@ -3,6 +3,8 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Data.Entity;
 using System.Collections.Generic;
+using System.Web.Http;
+using System.Net;
 
 namespace CustomerManagementSys.Models
 {
@@ -25,57 +27,72 @@ namespace CustomerManagementSys.Models
         [Min18YearsIfAMember]
         public DateTime? Birthdate { get; set; }
 
-        private ApplicationDbContext _context;
+        //private ApplicationDbContext _context;
 
-        public Customer()
-        {
-            _context = new ApplicationDbContext();
-        }
+        //public Customer()
+        //{
+        //    _context = new ApplicationDbContext();
+        //}
 
-        public Customer(ApplicationDbContext context)
-        {
-            _context = context;
-        }
+        //public Customer(ApplicationDbContext context)
+        //{
+        //    _context = context;
+        //}
 
-        public bool SaveCustomer(Customer customer)
-        {
+        //public List<Customer> GetAllCustomersWithMembership()
+        //{
+        //    List<Customer> returnLst = _context.Customers.Include(c => c.MembershipType).ToList();
+        //    return returnLst;
+        //}
 
-            if (customer.Id == 0)
-                _context.Customers.Add(customer);
+        //public Customer GetCustomerWithMembership(int id)
+        //{
+        //    var customerInDb = _context.Customers.Include(c => c.MembershipType).SingleOrDefault(c => c.Id == id);
 
-            else
-            {
-                var customerInDb = _context.Customers.Single(c => c.Id == customer.Id);
-                customerInDb.Name = customer.Name;
-                customerInDb.Birthdate = customer.Birthdate;
-                customerInDb.MembershipTypeId = customer.MembershipTypeId;
-                customerInDb.IsSubscribedToNewsletter = customer.IsSubscribedToNewsletter;
-            }
+        //    if (customerInDb == null)
+        //        throw new HttpResponseException(HttpStatusCode.NotFound);
 
-            if (_context.SaveChanges() > 0)
-                return true;
+        //    return customerInDb;
+        //}
 
-            return false;
-        }
+        //public Customer GetCustomer(int id)
+        //{
+        //    var customerInDb = _context.Customers.SingleOrDefault(c => c.Id == id);
 
-        public List<Customer> GetAllCustomersWithMembership()
-        {
-            List<Customer> returnLst = _context.Customers.Include(c => c.MembershipType).ToList();
-            return returnLst;
-        }
+        //    return customerInDb;
+        //}
 
-        public Customer GetCustomerWithMembership(int id)
-        {
-            var customer = _context.Customers.Include(c => c.MembershipType).SingleOrDefault(c => c.Id == id);
-            return customer;
-        }
+        //public void UpdateCustomer(Customer customerInDb, Customer cust)
+        //{
 
-        public Customer GetCustomer(int id)
-        {
-            var customer = _context.Customers.SingleOrDefault(c => c.Id == id);
-            return customer;
-        }
+        //    customerInDb.Name = cust.Name;
+        //    customerInDb.Birthdate = cust.Birthdate;
+        //    customerInDb.MembershipTypeId = cust.MembershipTypeId;
+        //    customerInDb.IsSubscribedToNewsletter = cust.IsSubscribedToNewsletter;
 
+        //    _context.SaveChanges();
+        //}
 
+        //public void SaveCustomer(Customer customer)
+        //{
+
+        //    if (customer.Id == 0)
+        //        _context.Customers.Add(customer);
+
+        //    else
+        //    {
+        //        var customerInDb = _context.Customers.Single(c => c.Id == customer.Id);
+        //        UpdateCustomer(customerInDb, customer);
+        //    }
+
+        //    _context.SaveChanges();
+        //}
+
+        //public void DeleteCustomer(Customer customerInDb)
+        //{
+        //    _context.Customers.Remove(customerInDb);
+        //    _context.SaveChanges();
+
+        //}
     }
 }

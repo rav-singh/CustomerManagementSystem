@@ -1,7 +1,6 @@
 ﻿using CustomerManagementSys.Models;
 using CustomerManagementSys.ViewModels;
-using System;
-using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web.Mvc;
 
@@ -23,14 +22,7 @@ namespace SpendCheck.Controllers
 
         public ViewResult Index()
         {
-            var lst = new Customer(_context).GetAllCustomersWithMembership();
-            return View(lst);
-        }
-
-        public List<Customer> GetCustomers()
-        {
-            var lst = new Customer(_context).GetAllCustomersWithMembership();
-            return lst;
+            return View();
         }
 
         public ActionResult New()
@@ -63,16 +55,27 @@ namespace SpendCheck.Controllers
                 return View("CustomerForm", viewModel);
             }
 
-            bool didSave = new Customer(_context).SaveCustomer(customer);
+            if (customer.Id == 0)
+                _context.Customers.Add(customer);
 
-            // check if saved in db successfully
+            else
+            {
+                var customerInDb = _context.Customers.Single(c => c.Id == customer.Id);
+                customerInDb.Name = customer.Name;
+                customerInDb.Birthdate = customer.Birthdate;
+                customerInDb.MembershipTypeId = customer.MembershipTypeId;
+                customerInDb.IsSubscribedToNewsletter = customer.IsSubscribedToNewsletter;
+            }
+
+            _context.SaveChanges();
+
             return RedirectToAction("Index", "Customers");
 
         }
 
         public ActionResult Details(int id)
         {
-            var customer = new Customer(_context).GetCustomerWithMembership(id);
+            var customer = _context.Customers.Include(c => c.MembershipType).SingleOrDefault(c => c.Id == id);
 
             if (customer == null)
                 return HttpNotFound();
@@ -82,7 +85,7 @@ namespace SpendCheck.Controllers
 
         public ActionResult Edit(int id)
         {
-            var customer = new Customer(_context).GetCustomer(id);
+            var customer = _context.Customers.SingleOrDefault(c => c.Id == id);
 
             if (customer == null)
                 return HttpNotFound();
