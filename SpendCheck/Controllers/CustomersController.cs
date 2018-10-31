@@ -6,6 +6,7 @@ using System.Web.Mvc;
 
 namespace CustomerManagementSys.Controllers
 {
+    [Authorize]
     public class CustomersController : Controller
     {
         private ApplicationDbContext _context;
@@ -64,6 +65,8 @@ namespace CustomerManagementSys.Controllers
                 customerInDb.Name = customer.Name;
                 customerInDb.Birthdate = customer.Birthdate;
                 customerInDb.MembershipTypeId = customer.MembershipTypeId;
+                customerInDb.PhoneNumber = customer.PhoneNumber;
+                customerInDb.Email = customer.Email;
                 customerInDb.IsSubscribedToNewsletter = customer.IsSubscribedToNewsletter;
             }
 

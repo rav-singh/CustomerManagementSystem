@@ -27,5 +27,10 @@ namespace CustomerManagementSys.Models
         [Min18YearsIfAMember]
         public DateTime? Birthdate { get; set; }
 
+        [Display(Name = "Customer Phone")]
+        public string PhoneNumber { get; set; }
+
+        [Display(Name = "Customer Email")]
+        public string Email { get; set; }
     }
 }

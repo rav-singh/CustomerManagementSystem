@@ -3,6 +3,7 @@ using System.Web.Mvc;
 
 namespace SpendCheck.Controllers
 {
+    [Authorize]
     public class ServicesController : Controller
     {
         private ApplicationDbContext _context;
