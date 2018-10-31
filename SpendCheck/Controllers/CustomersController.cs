@@ -4,7 +4,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web.Mvc;
 
-namespace SpendCheck.Controllers
+namespace CustomerManagementSys.Controllers
 {
     public class CustomersController : Controller
     {
@@ -27,7 +27,7 @@ namespace SpendCheck.Controllers
 
         public ActionResult New()
         {
-            var membershipTypes = new MembershipType(_context).GetAllMembershipTypes();
+            var membershipTypes = _context.MembershipTypes.ToList();
 
             var viewModel = new CustomerFormViewModel
             {
@@ -42,7 +42,7 @@ namespace SpendCheck.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Save(Customer customer)
         {
-            var membershipTypes = new MembershipType(_context).GetAllMembershipTypes();
+            var membershipTypes = _context.MembershipTypes.ToList();
 
             if (!ModelState.IsValid)
             {

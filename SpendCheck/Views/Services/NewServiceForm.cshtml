@@ -1,0 +1,93 @@
+﻿
+@model dynamic
+
+@{
+    ViewBag.Title = "New Service Form";
+}
+
+<h2>New Service Form</h2>
+
+<form id="newService">
+    <div class="form-group">
+        <label>Customer</label>
+        <div class="tt-container">
+            <input id="customer" name="customer" data-rule-validCustomer="true" required type="text" value="" class="form-control" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>Service</label>
+        <div class="tt-container">
+            <input id="service" name="service" data-rule-atLeastOneMovie="true" type="text" value="" class="form-control" />
+        </div>
+    </div>
+
+    <button class="btn btn-primary">Submit</button>
+</form>
+@section scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        $(document).ready(function () {
+
+            var vm = {
+
+            };
+
+            var customers = new Bloodhound({
+                datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
+                queryTokenizer: Bloodhound.tokenizers.whitespace,
+                remote: {
+                    url: '/api/customers?query=%QUERY',
+                    wildcard: '%QUERY'
+                }
+            });
+
+            $('#customer').typeahead({
+                minLength: 3,
+                highlight: true
+            }, {
+                    name: 'customers',
+                    display: 'name',
+                    source: customers
+                }).on("typeahead:select", function (e, customer) {
+                    vm.customerId = customer.id;
+                });
+
+
+            $.validator.addMethod("validCustomer", function () {
+                return vm.customerId && vm.customerId !== 0;
+            }, "Please select a valid customer.");
+
+            $.validator.addMethod("validServName", function () {
+                return vm.customerId && vm.customerId !== 0;
+            }, "Please select a valid customer.");
+
+
+            var validator = $("#newService").validate({
+                submitHandler: function () {
+                    var txt = $("#service").val();
+                    console.log(txt);
+                    vm.Name = txt;
+                    $.ajax({
+                        url: "/api/Services",
+                        method: "post",
+                        data: vm
+                    })
+                        .done(function () {
+                            toastr.success("Service successfully recorded.");
+
+                            $("#customer").typeahead("val", "");
+                            vm = {  };
+                            validator.resetForm();
+                        })
+                        .fail(function () {
+                            toastr.error("Something unexpected happened.");
+                        });
+
+                    return false;
+                }
+            });
+        });
+    </script>
+}

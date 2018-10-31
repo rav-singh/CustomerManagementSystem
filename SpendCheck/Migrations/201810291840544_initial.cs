@@ -3,7 +3,7 @@ namespace SpendCheck.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class FirstMigrationAddedCSFIles : DbMigration
+    public partial class initial : DbMigration
     {
         public override void Up()
         {
@@ -60,16 +60,14 @@ namespace SpendCheck.Migrations
                 "dbo.Services",
                 c => new
                     {
-                        ID = c.Int(nullable: false, identity: true),
+                        Id = c.Byte(nullable: false),
                         Name = c.String(),
-                        WebSiteName = c.String(),
-                        RelatedCustMembership_Id = c.Byte(),
-                        RelatedCustomer_Id = c.Int(),
+                        BeginService = c.DateTime(nullable: false),
+                        EndService = c.DateTime(nullable: false),
+                        RelatedCustomer_Id = c.Int(nullable: false),
                     })
-                .PrimaryKey(t => t.ID)
-                .ForeignKey("dbo.MembershipTypes", t => t.RelatedCustMembership_Id)
-                .ForeignKey("dbo.Customers", t => t.RelatedCustomer_Id)
-                .Index(t => t.RelatedCustMembership_Id)
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.Customers", t => t.RelatedCustomer_Id, cascadeDelete: true)
                 .Index(t => t.RelatedCustomer_Id);
             
             CreateTable(
@@ -127,14 +125,12 @@ namespace SpendCheck.Migrations
             DropForeignKey("dbo.AspNetUserLogins", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.Services", "RelatedCustomer_Id", "dbo.Customers");
-            DropForeignKey("dbo.Services", "RelatedCustMembership_Id", "dbo.MembershipTypes");
             DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
             DropForeignKey("dbo.Customers", "MembershipTypeId", "dbo.MembershipTypes");
             DropIndex("dbo.AspNetUserLogins", new[] { "UserId" });
             DropIndex("dbo.AspNetUserClaims", new[] { "UserId" });
             DropIndex("dbo.AspNetUsers", "UserNameIndex");
             DropIndex("dbo.Services", new[] { "RelatedCustomer_Id" });
-            DropIndex("dbo.Services", new[] { "RelatedCustMembership_Id" });
             DropIndex("dbo.AspNetUserRoles", new[] { "RoleId" });
             DropIndex("dbo.AspNetUserRoles", new[] { "UserId" });
             DropIndex("dbo.AspNetRoles", "RoleNameIndex");

@@ -180,16 +180,24 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\Api\CustomersController.cs" />
+    <Compile Include="Controllers\Api\ServicesController.cs" />
     <Compile Include="Controllers\CustomersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ServicesController.cs" />
     <Compile Include="Dtos\CustomerDto.cs" />
     <Compile Include="Dtos\MembershipTypeDto.cs" />
+    <Compile Include="Dtos\NewServiceDto.cs" />
+    <Compile Include="Dtos\ServiceDto.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201810142041378_FirstMigrationAddedCSFIles.cs" />
-    <Compile Include="Migrations\201810142041378_FirstMigrationAddedCSFIles.Designer.cs">
-      <DependentUpon>201810142041378_FirstMigrationAddedCSFIles.cs</DependentUpon>
+    <Compile Include="Migrations\201810291840544_initial.cs" />
+    <Compile Include="Migrations\201810291840544_initial.Designer.cs">
+      <DependentUpon>201810291840544_initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201810310209180_Change Services ID to int.cs" />
+    <Compile Include="Migrations\201810310209180_Change Services ID to int.Designer.cs">
+      <DependentUpon>201810310209180_Change Services ID to int.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -203,11 +211,12 @@
     <Compile Include="Models\Service.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\CustomerFormViewModel.cs" />
+    <Compile Include="ViewModels\ServiceFormViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\Oct18.mdf" />
-    <Content Include="App_Data\Oct18_log.ldf">
-      <DependentUpon>Oct18.mdf</DependentUpon>
+    <Content Include="App_Data\localdb.mdf" />
+    <Content Include="App_Data\localdb_log.ldf">
+      <DependentUpon>localdb.mdf</DependentUpon>
     </Content>
     <Content Include="Content\bootstrap-lumen.css" />
     <Content Include="Content\bootstrap-theme.css" />
@@ -321,10 +330,13 @@
     <Content Include="Content\DataTables\images\sort_desc.png" />
     <Content Include="Content\DataTables\images\sort_desc_disabled.png" />
     <Content Include="Content\DataTables\swf\flashExport.swf" />
+    <Content Include="Content\typeahead.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Scripts\bloodhound.js" />
+    <Content Include="Scripts\bloodhound.min.js" />
     <Content Include="Scripts\bootbox.js" />
     <Content Include="Scripts\bootbox.min.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -409,6 +421,10 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\typeahead.bundle.js" />
+    <Content Include="Scripts\typeahead.bundle.min.js" />
+    <Content Include="Scripts\typeahead.jquery.js" />
+    <Content Include="Scripts\typeahead.jquery.min.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -426,11 +442,8 @@
     <Content Include="Views\Customers\CustomerForm.cshtml" />
     <Content Include="Views\Customers\Details.cshtml" />
     <Content Include="Views\Customers\Index.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201810142041378_FirstMigrationAddedCSFIles.resx">
-      <DependentUpon>201810142041378_FirstMigrationAddedCSFIles.cs</DependentUpon>
-    </EmbeddedResource>
+    <Content Include="Views\Services\Index.cshtml" />
+    <Content Include="Views\Services\NewServiceForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -445,7 +458,14 @@
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201810291840544_initial.resx">
+      <DependentUpon>201810291840544_initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810310209180_Change Services ID to int.resx">
+      <DependentUpon>201810310209180_Change Services ID to int.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

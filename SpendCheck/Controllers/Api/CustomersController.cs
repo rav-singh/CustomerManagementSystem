@@ -1,12 +1,11 @@
 ﻿using AutoMapper;
-using CustomerManagementSys.Models;
-using SpendCheck.Dtos;
+using CustomerManagementSys.Dtos;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Data.Entity;
 using System.Net;
 using System.Web.Http;
+using CustomerManagementSys.Models;
 
 namespace SpendCheck.Controllers.Api
 {

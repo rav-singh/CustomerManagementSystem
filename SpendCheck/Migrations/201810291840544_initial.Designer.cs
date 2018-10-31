@@ -7,13 +7,13 @@ namespace SpendCheck.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class FirstMigrationAddedCSFIles : IMigrationMetadata
+    public sealed partial class initial : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(FirstMigrationAddedCSFIles));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(initial));
         
         string IMigrationMetadata.Id
         {
-            get { return "201810142041378_FirstMigrationAddedCSFIles"; }
+            get { return "201810291840544_initial"; }
         }
         
         string IMigrationMetadata.Source
